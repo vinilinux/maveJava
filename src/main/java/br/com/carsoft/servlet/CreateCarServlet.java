@@ -1,5 +1,8 @@
 package br.com.carsoft.servlet;
 
+import br.com.carsoft.dao.CarDao;
+import br.com.carsoft.model.Car;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,9 +17,12 @@ public class CreateCarServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         String carName = request.getParameter("car");
 
-        System.out.println(carName);
+        Car car = new Car();
+        car.setName(carName);
 
-        request.getRequestDispatcher("index.html").forward(request, resp);
+        new CarDao().createCar(car);
+
+        request.getRequestDispatcher("index.jsp").forward(request, resp);
 
     }
 }
